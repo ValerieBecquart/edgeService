@@ -68,9 +68,11 @@ public class EdgeServiceController {
         return responseEntityUsers.getBody();
     }
 
-    @GetMapping("/score")
-    public String getMethodWorking(){
-        return "METHOD WORKING";
+    @GetMapping("/scoreuser")
+    public User getMethodWorking(){
+        User u = restTemplate.getForObject("http://" + userServiceBaseUrl +"/user/{userID}",
+                User.class, "u1");
+        return u;
     }
 
     /* POST NEW USER */
