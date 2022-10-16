@@ -38,6 +38,16 @@ public class EdgeServiceController {
         return responseEntityQuestions.getBody();
     }
 
+    /* GET SPECIFIC QUESTION */
+    //GET: /question/{id}
+    @GetMapping("question/{id}")
+    public Question getQuestionById(@PathVariable int id){
+        Question q = restTemplate.getForObject("http://" + gameServiceBaseUrl + "/question/{id}",
+                Question.class, id);
+
+        return q;
+    }
+
     /* GET SPECIFIC USER */
     //GET: user/{userID}
     @GetMapping("user/{userID}")
@@ -78,11 +88,13 @@ public class EdgeServiceController {
                 HttpMethod.PUT, new HttpEntity<>(u), User.class);
 
         return responseEntityUser.getBody();
-
     }
 
+    @DeleteMapping("user/{userID}")
+    public ResponseEntity deleteUser(@PathVariable String userID){
+        restTemplate.delete("http://" + userServiceBaseUrl + "/users/" + userID);
 
-
-
+        return ResponseEntity.ok().build();
+    }
 
 }
