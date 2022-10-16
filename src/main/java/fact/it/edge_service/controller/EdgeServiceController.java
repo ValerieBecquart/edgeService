@@ -59,13 +59,18 @@ public class EdgeServiceController {
 
     /* GETTING ALL SCORES TO DISPLAY HIGHSCORES */
     //GET: /scores
-    @GetMapping("scores")
+    @GetMapping("/scores")
     public List<User> getAllScoresAsc(){
         ResponseEntity<List<User>> responseEntityUsers =
                 restTemplate.exchange("http://" + userServiceBaseUrl + "/scores",
                         HttpMethod.GET, null, new ParameterizedTypeReference<List<User>>() {
                         });
         return responseEntityUsers.getBody();
+    }
+
+    @GetMapping("/score")
+    public String getMethodWorking(){
+        return "METHOD WORKING";
     }
 
     /* POST NEW USER */
