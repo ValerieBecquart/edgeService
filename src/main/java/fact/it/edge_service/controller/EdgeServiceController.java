@@ -82,7 +82,7 @@ public class EdgeServiceController {
     /* UPDATE USER SCORE */
     //PUT: /user/{userID}
     @PutMapping("user/{userID}")
-    public User updateScore(@RequestBody User u, @PathVariable String userID){
+    public User updateScore(@RequestBody User u, @PathVariable int userID){
 
         ResponseEntity<User> responseEntityUser = restTemplate.exchange("http://" + userServiceBaseUrl + "/users/" + userID,
                 HttpMethod.PUT, new HttpEntity<>(u), User.class);
@@ -91,7 +91,7 @@ public class EdgeServiceController {
     }
 
     @DeleteMapping("user/{userID}")
-    public ResponseEntity deleteUser(@PathVariable String userID){
+    public ResponseEntity deleteUser(@PathVariable int userID){
         restTemplate.delete("http://" + userServiceBaseUrl + "/users/" + userID);
 
         return ResponseEntity.ok().build();
