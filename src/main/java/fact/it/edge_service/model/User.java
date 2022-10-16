@@ -1,7 +1,8 @@
 package fact.it.edge_service.model;
 
 public class User {
-    private String userID;
+    private String id;
+    private int userID;
     private String name;
     private String email;
     private int avatarID;
@@ -11,7 +12,7 @@ public class User {
     public User() {
     }
 
-    public User(String userID, String name, String email, int avatarID, int score) {
+    public User(int userID, String name, String email, int avatarID, int score) {
         this.userID = userID;
         this.name = name;
         this.email = email;
@@ -20,11 +21,11 @@ public class User {
     }
 
     //GETTER AND SETTERS
-    public String getUserID() {
+    public int getUserID() {
         return userID;
     }
 
-    public void setUserID(String userID) {
+    public void setUserID(int userID) {
         this.userID = userID;
     }
 

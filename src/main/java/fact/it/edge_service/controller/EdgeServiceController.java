@@ -51,7 +51,7 @@ public class EdgeServiceController {
     /* GET SPECIFIC USER */
     //GET: user/{userID}
     @GetMapping("user/{userID}")
-    public User getUserById(@PathVariable String userID){
+    public User getUserById(@PathVariable int userID){
         User u = restTemplate.getForObject("http://" + userServiceBaseUrl +"/user/{userID}",
                 User.class, userID);
         return u;
