@@ -8,16 +8,27 @@ public class User {
     private int avatarID;
     private int score;
 
-    //CONTRUCTORS
+    /* CONSTRUCTORS */
+    //empty constructor
     public User() {
     }
 
+    //constructor with all parameters
     public User(int userID, String name, String email, int avatarID, int score) {
         this.userID = userID;
         this.name = name;
         this.email = email;
         this.avatarID = avatarID;
         this.score = score;
+    }
+
+    //Constructor with only userID, name and avatar
+    public User(int userID, String name, int avatarID) {
+        this.userID = userID;
+        this.name = name;
+        this.avatarID = avatarID;
+        this.email = name+"@test.com";
+        this.score = 0;
     }
 
     //GETTER AND SETTERS
