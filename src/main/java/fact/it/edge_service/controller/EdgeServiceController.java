@@ -69,13 +69,21 @@ public class EdgeServiceController {
     }
 
     /* POST NEW USER */
-    //POST: /user
+    //POST: /user?username={username}&avatarID={avatarID}
     @PostMapping("/user")
-    public User createNewUser(@RequestBody User u){
+    public User createNewUser(@RequestParam String username, @RequestParam Integer avatarID){
 
+        /*Get user count*/
+        int userID = (int)getAllScoresAsc().stream().count() + 1;
+
+        /*CREATE NEW USER TO PUT IN DB*/
+        User u = new User(userID, username, avatarID);
+
+        /* POST USER TO DB MICROSERVICE */
         User user = restTemplate.postForObject("http://" + userServiceBaseUrl + "/users",
                 u, User.class);
 
+        /*Return user*/
         return user;
     }
 
