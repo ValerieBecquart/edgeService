@@ -31,19 +31,19 @@ public class EdgeServiceController {
     @GetMapping("questions")
     public List<Question> getAllQuestions(){
         ResponseEntity<List<Question>> responseEntityQuestions =
-                restTemplate.exchange("http://" + gameServiceBaseUrl + "/question",
+                restTemplate.exchange("http://" + gameServiceBaseUrl + "/questions",
                         HttpMethod.GET, null, new ParameterizedTypeReference<List<Question>>() {
                         });
 
         return responseEntityQuestions.getBody();
     }
 
-    /* GET SPECIFIC QUESTION */
-    //GET: /question/{id}
-    @GetMapping("question/{id}")
-    public Question getQuestionById(@PathVariable int id){
-        Question q = restTemplate.getForObject("http://" + gameServiceBaseUrl + "/question/{id}",
-                Question.class, id);
+    /* GET SPECIFIC QUESTION BY OBJECTNAME*/
+    //GET: /question/{objectname}
+    @GetMapping("question/{objectname}")
+    public Question getQuestionById(@PathVariable String objectname){
+        Question q = restTemplate.getForObject("http://" + gameServiceBaseUrl + "/question/{objectname}",
+                Question.class, objectname);
 
         return q;
     }
