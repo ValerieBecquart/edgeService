@@ -91,11 +91,11 @@ public class EdgeServiceController {
 
     /* POST NEW USER */
     //POST: /user?username={username}&avatarID={avatarID}
-    @PostMapping("/user")
+    @PostMapping("user")
     public User createNewUser(@RequestParam String username, @RequestParam Integer avatarID){
 
         /*Get user count*/
-        int userID = (int)getAllUsers().stream().count() + 1;
+        int userID = getAllUsers().toArray().length + 1;
 
         /*CREATE NEW USER TO PUT IN DB*/
         User u = new User(userID, username, avatarID);
@@ -110,10 +110,10 @@ public class EdgeServiceController {
 
     /* UPDATE USER SCORE */
     //PUT: /user
-    @PutMapping("user")
+    @PutMapping("/user")
     public ResponseEntity<Void> updateScore(@RequestBody User u ){
 
-        restTemplate.exchange("http://" + userServiceBaseUrl + "/user/" ,
+        restTemplate.exchange("http://" + userServiceBaseUrl + "/user" ,
                 HttpMethod.PUT, new HttpEntity<>(u), User.class);
 
         return ResponseEntity.ok().build();

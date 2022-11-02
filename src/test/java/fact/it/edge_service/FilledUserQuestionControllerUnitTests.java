@@ -226,45 +226,67 @@ public class FilledUserQuestionControllerUnitTests {
                 .andExpect(jsonPath("$[2].score",is(20)));
     }
     @Test
-    public void whenAddUser_thenReturnStatusOk()throws Exception {
+    public void whenAddUser_thenReturnStatusOk() throws Exception {
         User user5 = new User(10, "Charles", "charles@king.com", 5, 150);
-
+        //GET ALL USERS
         mockServer.expect(ExpectedCount.once(),
-                        requestTo(new URI("http://" + userServiceBaseUrl + "/user")))
+                requestTo(new URI("http://" + userServiceBaseUrl + "/users")))
+                        .andExpect(method(HttpMethod.GET))
+                            .andRespond(withStatus(HttpStatus.OK)
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .body(mapper.writeValueAsString(allUsers)));
+
+        //POST USER IN USER SERVICE
+        mockServer.expect(ExpectedCount.once(),
+                requestTo(new URI("http://" + userServiceBaseUrl + "/user")))
                 .andExpect(method(HttpMethod.POST))
                 .andRespond(withStatus(HttpStatus.OK)
                         .contentType(MediaType.APPLICATION_JSON)
                         .body(mapper.writeValueAsString(user5))
-
                 );
 
 
         mockMvc.perform(post("/user")
-                        .param("avatarID" , Integer.toString(user5.getAvatarID()))
-                        .param("username" , user5.getName())
-
-                        .content(mapper.writeValueAsString(user5))
-
-                        .contentType(MediaType.APPLICATION_JSON))
+                .param("username" , user5.getName())
+                .param("avatarID" , Integer.toString(user5.getAvatarID()))
+                .content(mapper.writeValueAsString(user5))
+                .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.name", is("Charles")))
-                .andExpect(jsonPath("$.avatarID", is(5)));
+                .andExpect(jsonPath("$.avatarID", is(5)))
+                .andExpect(jsonPath("$.email", is("charles@king.com")))
+                .andExpect(jsonPath("$.score", is(150)))
+                .andExpect(jsonPath("$.userID", is(10)));
     }
 
-
-
-
-        @Test
+    @Test
     public void whenDeleteUser_thenReturnStatusOk()throws Exception{
-    mockServer.expect(ExpectedCount.once(),
+        mockServer.expect(ExpectedCount.once(),
                     requestTo(new URI("http://" + userServiceBaseUrl + "/user/1")))
             .andExpect(method(HttpMethod.DELETE))
             .andRespond(withStatus(HttpStatus.OK)
-
             );
-    mockMvc.perform(delete("/user/{userID}", 1))
+
+        mockMvc.perform(delete("/user/{userID}", 1))
             .andExpect(status().isOk());
-}
+    }
+
+    @Test
+    public void whenUpdatingScore_thenReturnStatusOk() throws Exception{
+        User updatedUser = new User(10, "Charles", "charles@king.com", 5, 250);
+
+        mockServer.expect(ExpectedCount.once(),
+                requestTo(new URI("http://" + userServiceBaseUrl + "/user")))
+                .andExpect(method(HttpMethod.PUT))
+                .andRespond(withStatus(HttpStatus.OK)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .body(mapper.writeValueAsString(updatedUser)));
+
+        mockMvc.perform(put("/user")
+                .content(mapper.writeValueAsString(updatedUser))
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+    }
 
 }
