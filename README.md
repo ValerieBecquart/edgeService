@@ -85,3 +85,8 @@ The service has `SwaggerUI` implemented for interactively testing and exposing t
 All repositories have been provided with Unit tests with 100% code coverage for the controllers, models, and repositories inside the project.
 The lower services `user-service` and `game-service` have also been provided IntegrationTests with 100% code coverage.
 
+#### Unit Tests Code coverage results:
+![UnitTests](https://user-images.githubusercontent.com/58487061/200144081-2386dd7c-0f55-4620-b59d-2d8a30505325.png)
+
+#### Integration Tests Code coverage results:
+![integrationtests](https://user-images.githubusercontent.com/58487061/200144575-f4e96b21-6671-4e4d-8bcb-c6f7ff947290.png)
