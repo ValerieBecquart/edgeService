@@ -89,12 +89,13 @@ public class EdgeServiceController {
         return responseEntityUsers.getBody();
     }
 
+    //Get question of the highest level of the game
     @GetMapping("/highestlevel")
-    public Integer getHighestLevel(){
-        Question g = restTemplate.getForObject("http://" + gameServiceBaseUrl + "/highestlevel", Question.class);
-
-        return g.getLevel();
+    public Question getHighestLevel(){
+        Question hl = restTemplate.getForObject("http://" + gameServiceBaseUrl + "/highestlevel", Question.class);
+        return hl;
     }
+
     /* POST NEW USER */
     //POST: /user?username={username}&avatarID={avatarID}
     @PostMapping("user")
