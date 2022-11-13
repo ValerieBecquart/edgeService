@@ -3,10 +3,10 @@
 For a class assigment we had to create a mobile application which ran on a deployed backend architecture consisting of at least 2 backend microservices with 1 edge-service on top which is responsible for handling the users requests.
 
 This architecture looks like:
-![Architecture](https://user-images.githubusercontent.com/58487061/200135160-c3d58947-b2c9-4464-b451-6e0b0c97175f.png)
+![Architecture](https://user-images.githubusercontent.com/58487061/201539793-498001af-9138-4e67-b053-1033f9fda12e.png)
 
 ## Description
-The mobile application is a Geo-location AR scavenger hunt using Game of Thrones based 3D-models.
+The mobile application is a POC for a Geo-location AR scavenger hunt. The user can find and interact with 3D models which are augmented in the real world around the user. 
 
 The mobile application was created in `Flutter` and used the `Wikitude AR SDK`. The repo for the mobile application can be found [here](https://github.com/KevinVandeputte-TM/flutter_wikitude_project).
 
@@ -71,13 +71,14 @@ And you should see a similar output:
 - [Postman](https://www.postman.com/)
 
 The `edge-service` API was tested by using Postman. Hereby the test results of those tests as proof of functioning of the `edge-service`:
-  ![postman](https://user-images.githubusercontent.com/58487061/200135689-b89fc496-4c3b-489e-a055-b00113851f05.png)
+
+![postman](https://user-images.githubusercontent.com/58487061/201540718-531d4eaa-207c-40ec-8802-9f03a58c02a1.png)
 
 - [SwaggerUI](https://swagger.io/tools/swagger-ui/)
 
-The service has `SwaggerUI` implemented for interactively testing and exposing the API. The `SwaggerUI` will be running locally on: http://localhost:8053/swagger-ui.html
+The service has `SwaggerUI` implemented for interactively testing and exposing the API. After setup the `SwaggerUI` will be running locally on: http://localhost:8053/swagger-ui.html
 
-![swagger](https://user-images.githubusercontent.com/58487061/200135892-7258eb63-c414-4868-b51a-2722e0941c30.png)
+![swagger](https://user-images.githubusercontent.com/58487061/201539983-2d29211e-721a-43ab-abfe-9839d01710ef.png)
 
 
 - Unit and Integration Tests
@@ -86,7 +87,7 @@ All repositories have been provided with Unit tests with 100% code coverage for 
 The lower services `user-service` and `game-service` have also been provided IntegrationTests with 100% code coverage.
 
 #### Unit Tests Code coverage results:
-![UnitTests](https://user-images.githubusercontent.com/58487061/200144081-2386dd7c-0f55-4620-b59d-2d8a30505325.png)
+![UnitTests](https://user-images.githubusercontent.com/58487061/201540192-ce08d444-7bf6-49dc-b2e8-fdf15b0a11d6.png)
 
 #### Integration Tests Code coverage results:
-![integrationtests](https://user-images.githubusercontent.com/58487061/200144575-f4e96b21-6671-4e4d-8bcb-c6f7ff947290.png)
+![integrationtests](https://user-images.githubusercontent.com/58487061/201540275-c30ec8a2-9cb2-4a80-bb65-97351c333c72.png)
