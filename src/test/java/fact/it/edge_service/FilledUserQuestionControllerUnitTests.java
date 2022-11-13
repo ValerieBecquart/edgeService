@@ -106,7 +106,33 @@ public class FilledUserQuestionControllerUnitTests {
                 .andExpect(jsonPath("$[1].scoreDefensive", is(5)))
                 .andExpect(jsonPath("$[1].scoreOffensive", is(0)));
     }
+    @Test
+    public void whenGetHighestLevel_thenReturnQuestionJson() throws Exception {
+        mockServer.expect(ExpectedCount.once(),
+                        requestTo(new URI("http://" + gameServiceBaseUrl + "/highestlevel")))
+                .andExpect(method(HttpMethod.GET))
+                .andRespond(withStatus(HttpStatus.OK)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .body(mapper.writeValueAsString(g1))
+                );
+        mockMvc.perform(get("/highestlevel"))
 
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.gameId", is(1)))
+                .andExpect(jsonPath("$.question", is("Vraag 1")))
+                .andExpect(jsonPath("$.level", is(1)))
+                .andExpect(jsonPath("$.x", is(1.0)))
+                .andExpect(jsonPath("$.y", is(5.0)))
+                .andExpect(jsonPath("$.correctanswer", is("juist")))
+                .andExpect(jsonPath("$.answertwo", is("fout")))
+                .andExpect(jsonPath("$.answerthree", is("fout")))
+                .andExpect(jsonPath("$.objectName", is("EXTRA_PotionVial")))
+                .andExpect(jsonPath("$.scoreDefensive", is(10)))
+                .andExpect(jsonPath("$.scoreOffensive", is(5)));
+
+
+    }
     @Test
     public void givenObjectName_whengetQuestionByObjectName_thenReturnUsersJson() throws Exception {
         mockServer.expect(ExpectedCount.once(),
