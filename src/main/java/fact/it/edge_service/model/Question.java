@@ -11,20 +11,7 @@ public class Question {
     private String objectName;
 
     public Question() {
-    }
-
-    public Question(int gameId, String question, int level, double x, double y, String correctanswer, String answertwo, String answerthree, int scoreDefensive, int scoreOffensive, String objectName ) {
-        this.gameId = gameId;
-        this.question = question;
-        this.level = level;
-        this.x = x;
-        this.y = y;
-        this.correctanswer = correctanswer;
-        this.answertwo = answertwo;
-        this.answerthree = answerthree;
-        this.objectName =  objectName;
-        this.scoreDefensive = scoreDefensive;
-        this.scoreOffensive=scoreOffensive;
+        //create new question
     }
 
     public int getGameId() {

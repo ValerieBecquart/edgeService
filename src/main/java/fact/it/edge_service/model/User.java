@@ -1,7 +1,6 @@
 package fact.it.edge_service.model;
 
 public class User {
-    private String id;
     private int userID;
     private String name;
     private String email;

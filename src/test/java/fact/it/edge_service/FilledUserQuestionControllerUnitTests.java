@@ -58,19 +58,45 @@ public class FilledUserQuestionControllerUnitTests {
 
     String juist = "juist";
     String fout = "fout";
-    private Question g1 = new Question(1, "Vraag 1", 1, 1, 5, juist, fout, fout, 10, 5, "EXTRA_PotionVial");
-    private Question g2 = new Question(2, "Vraag 2", 1, 4, 1, juist, fout, fout, 5, 0, "DEF_RoundShield");
+    private Question g1 = new Question();
+    private Question g2 = new Question();
 
+    public void init(){
+        g1.setGameId(1);
+        g1.setLevel(1);
+        g1.setQuestion("Vraag 1");
+        g1.setCorrectanswer("juist");
+        g1.setAnswertwo("fout");
+        g1.setAnswerthree("fout");
+        g1.setObjectName("EXTRA_PotionVial");
+        g1.setY(5);
+        g1.setX(1);
+        g1.setScoreDefensive(10);
+        g1.setScoreOffensive(5);
+
+        g2.setGameId(2);
+        g2.setLevel(1);
+        g2.setQuestion("Vraag 2");
+        g2.setCorrectanswer("juist");
+        g2.setAnswertwo("fout");
+        g2.setAnswerthree("fout");
+        g2.setObjectName("DEF_RoundShield");
+        g2.setY(1);
+        g2.setX(4);
+        g2.setScoreDefensive(5);
+        g2.setScoreOffensive(0);
+    }
     private List<Question> allQuestions = Arrays.asList(g1, g2);
     private List<User> allUsers = Arrays.asList(u1, u2, u3);
 
     @BeforeEach
     public void initializeMockserver() {
         mockServer = MockRestServiceServer.createServer(restTemplate);
+        init();
     }
 
     @Test
-    public void whenGetAllQuestions_thenReturnUsersJson() throws Exception {
+    void whenGetAllQuestions_thenReturnUsersJson() throws Exception {
         mockServer.expect(ExpectedCount.once(),
                         requestTo(new URI("http://" + gameServiceBaseUrl + "/questions")))
                 .andExpect(method(HttpMethod.GET))
@@ -107,7 +133,7 @@ public class FilledUserQuestionControllerUnitTests {
                 .andExpect(jsonPath("$[1].scoreOffensive", is(0)));
     }
     @Test
-    public void whenGetHighestLevel_thenReturnQuestionJson() throws Exception {
+    void whenGetHighestLevel_thenReturnQuestionJson() throws Exception {
         mockServer.expect(ExpectedCount.once(),
                         requestTo(new URI("http://" + gameServiceBaseUrl + "/highestlevel")))
                 .andExpect(method(HttpMethod.GET))
@@ -134,7 +160,7 @@ public class FilledUserQuestionControllerUnitTests {
 
     }
     @Test
-    public void givenObjectName_whengetQuestionByObjectName_thenReturnUsersJson() throws Exception {
+    void givenObjectName_whengetQuestionByObjectName_thenReturnUsersJson() throws Exception {
         mockServer.expect(ExpectedCount.once(),
                         requestTo(new URI("http://" + gameServiceBaseUrl + "/question/EXTRA_PotionVial")))
                 .andExpect(method(HttpMethod.GET))
@@ -161,7 +187,7 @@ public class FilledUserQuestionControllerUnitTests {
                 .andExpect(jsonPath("$.scoreOffensive", is(5)));
     }
     @Test
-    public void givenLevel_whengetAllQuestionsByLevel_thenReturnUsersJson() throws Exception {
+    void givenLevel_whengetAllQuestionsByLevel_thenReturnUsersJson() throws Exception {
         mockServer.expect(ExpectedCount.once(),
                         requestTo(new URI("http://" + gameServiceBaseUrl + "/questionsbylevel/1")))
                 .andExpect(method(HttpMethod.GET))
@@ -200,7 +226,7 @@ public class FilledUserQuestionControllerUnitTests {
     }
 
     @Test
-    public void givenUserID_whengetUserById_thenReturnUsersJson() throws Exception {
+    void givenUserID_whengetUserById_thenReturnUsersJson() throws Exception {
         mockServer.expect(ExpectedCount.once(),
                         requestTo(new URI("http://" + userServiceBaseUrl + "/user/1")))
                 .andExpect(method(HttpMethod.GET))
@@ -221,7 +247,7 @@ public class FilledUserQuestionControllerUnitTests {
                 .andExpect(jsonPath("$.score",is(0)));
     }
     @Test
-    public void whengetTop5HighScoresAsc_thenReturnScoresJson() throws Exception {
+    void whengetTop5HighScoresAsc_thenReturnScoresJson() throws Exception {
         mockServer.expect(ExpectedCount.once(),
                         requestTo(new URI("http://" + userServiceBaseUrl + "/scores")))
                 .andExpect(method(HttpMethod.GET))
@@ -252,7 +278,7 @@ public class FilledUserQuestionControllerUnitTests {
                 .andExpect(jsonPath("$[2].score",is(20)));
     }
     @Test
-    public void whenAddUser_thenReturnStatusOk() throws Exception {
+    void whenAddUser_thenReturnStatusOk() throws Exception {
         User user5 = new User(10, "Charles", "charles@king.com", 5, 150);
         //GET ALL USERS
         mockServer.expect(ExpectedCount.once(),
@@ -287,7 +313,7 @@ public class FilledUserQuestionControllerUnitTests {
     }
 
     @Test
-    public void whenDeleteUser_thenReturnStatusOk()throws Exception{
+    void whenDeleteUser_thenReturnStatusOk()throws Exception{
         mockServer.expect(ExpectedCount.once(),
                     requestTo(new URI("http://" + userServiceBaseUrl + "/user/1")))
             .andExpect(method(HttpMethod.DELETE))
@@ -299,7 +325,7 @@ public class FilledUserQuestionControllerUnitTests {
     }
 
     @Test
-    public void whenUpdatingScore_thenReturnStatusOk() throws Exception{
+    void whenUpdatingScore_thenReturnStatusOk() throws Exception{
         User updatedUser = new User(10, "Charles", "charles@king.com", 5, 250);
 
         mockServer.expect(ExpectedCount.once(),
