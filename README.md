@@ -65,6 +65,7 @@ Now you should be able to go to:
 http://localhost:8053/scores
 ```
 And you should see a similar output:
+
 ![localhost](https://user-images.githubusercontent.com/58487061/200133538-f3d0b4ba-681a-4259-9166-4710b7bb0791.png)
 
 # Testing
@@ -91,3 +92,4 @@ The lower services `user-service` and `game-service` have also been provided Int
 
 #### Integration Tests Code coverage results:
 ![integrationtests](https://user-images.githubusercontent.com/58487061/201540275-c30ec8a2-9cb2-4a80-bb65-97351c333c72.png)
+![userService_SonarCloud](https://user-images.githubusercontent.com/58487061/201745530-109dbaf6-b3d7-4ce4-a5f5-d92653ac8108.png)
