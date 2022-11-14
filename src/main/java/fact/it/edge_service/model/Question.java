@@ -11,6 +11,7 @@ public class Question {
     private String objectName;
 
     public Question() {
+        //create new question
     }
 
     public int getGameId() {
