@@ -1,5 +1,60 @@
 services:
-  edge:
-    image: r0809699/edgeService
+  mongo:
+    image: mongo:latest
     ports:
-      - 8080:8080
+      - 27017:27017
+    volumes:
+      - mongodb_data_container:/data/db
+  
+  mariadb:
+    image: mariadb:latest
+    ports:
+      - 3306:3306
+    volumes:
+      - mariadb_data_container:/var/lib/mysql
+    environment:
+      MARIADB_ROOT_PASSWORD: abc123
+
+  users-service:
+    depends_on:
+      - mongo
+    image: r0809699/users_service2
+    ports:
+      - 8052:8052
+    links:
+      - mongo
+    environment:
+      MONGODB_PORT: 27017
+      MONGODB_HOST: mongo
+
+  game-service:
+    depends_on:
+      - mariadb
+    image: r0809699/game_service
+    ports:
+      - 8051:8051
+    links:
+      - mariabd
+    environment:
+      MARIADB_USERNAME: root
+      MARIADB_PASSWORD: abc123
+      MARIADB_HOST: mariadb
+      MARIADB_PORT: 3306
+
+  edge-service:
+    depends_on:
+      - users-service
+      - game-service
+    image: r0809699/edge_service
+    ports:
+      - 8053:8053
+    links:
+      - users_service2
+      - game_service
+    environment:
+      USER_SERVICE_BASEURL: users-service:8052
+      GAME_SERVICE_BASEURL: game-service:8051
+
+volumes:
+  mongodb_data_container:
+  mariadb_data_container:
