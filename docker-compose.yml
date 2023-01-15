@@ -1,0 +1,5 @@
+services:
+  edge:
+    image: r0809699/edgeService
+    ports:
+      - 8080:8080
